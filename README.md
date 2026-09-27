@@ -138,7 +138,7 @@ Planned work includes NestJS filters, error-code mappings, runtime trace correla
 
 ## AI assistance disclosure
 
-This project was developed with assistance from **OpenAI Codex / ChatGPT**. AI assistance was used for ideation, implementation, tests, documentation, and review. The project owner is responsible for the submitted work and its behavior. No AI-generated code is accepted without local compilation and automated verification.
+This project was developed with assistance from **OpenAI Codex / ChatGPT** for ideation, implementation, testing, documentation, and code review.
 
 ## Built with
 
