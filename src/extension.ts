@@ -20,28 +20,28 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("exceptionLens.scan", async () => {
       const folder = await chooseWorkspaceFolder();
       if (!folder) return;
-      await vscode.window.withProgress(
-        { location: vscode.ProgressLocation.Notification, title: "Exception Lens: tracing exception paths", cancellable: false },
-        async () => {
-          try {
-            report = analyzeWorkspace(folder.uri.fsPath);
-            routesProvider.setReport(report);
-            summaryProvider.setReport(report);
-            publishDiagnostics(report, diagnostics);
-            const message = `${report.stats.routeCount} routes · ${report.stats.exceptionPathCount} exception paths · ${report.stats.unmappedCount} unmapped`;
-            if (report.stats.unmappedCount) {
-              await vscode.window.showWarningMessage(`Exception Lens found ${message}.`, "Open first route").then((choice) => {
-                if (choice === "Open first route" && report?.routes[0]) GraphPanel.show(report.routes[0]);
-              });
-            } else {
-              vscode.window.showInformationMessage(`Exception Lens: ${message}.`);
-            }
-          } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            vscode.window.showErrorMessage(`Exception Lens could not analyze this workspace: ${message}`);
-          }
-        },
-      );
+      try {
+        const analyzed = await vscode.window.withProgress(
+          { location: vscode.ProgressLocation.Notification, title: "Exception Lens: tracing exception paths", cancellable: false },
+          async () => analyzeWorkspace(folder.uri.fsPath),
+        );
+        report = analyzed;
+        routesProvider.setReport(analyzed);
+        summaryProvider.setReport(analyzed);
+        publishDiagnostics(analyzed, diagnostics);
+
+        const message = `${analyzed.stats.routeCount} routes · ${analyzed.stats.exceptionPathCount} exception paths · ${analyzed.stats.unmappedCount} unmapped`;
+        if (analyzed.stats.unmappedCount) {
+          void vscode.window.showWarningMessage(`Exception Lens found ${message}.`, "Open first route").then((choice) => {
+            if (choice === "Open first route" && analyzed.routes[0]) GraphPanel.show(analyzed.routes[0]);
+          });
+        } else {
+          void vscode.window.showInformationMessage(`Exception Lens: ${message}.`);
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        void vscode.window.showErrorMessage(`Exception Lens could not analyze this workspace: ${message}`);
+      }
     }),
     vscode.commands.registerCommand("exceptionLens.showGraph", (item?: RouteItem) => {
       const route = item?.route ?? report?.routes[0];
