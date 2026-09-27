@@ -6,6 +6,14 @@
   "packageManager": "pnpm@9.15.4",
   "publisher": "johnjosephtopacio",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnJosephTopacio/exception-lens.git"
+  },
+  "homepage": "https://github.com/JohnJosephTopacio/exception-lens#readme",
+  "bugs": {
+    "url": "https://github.com/JohnJosephTopacio/exception-lens/issues"
+  },
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -110,12 +118,20 @@
       "properties": {
         "exceptionLens.include": {
           "type": "array",
-          "default": ["**/*.ts", "**/*.tsx"],
+          "default": [
+            "**/*.ts",
+            "**/*.tsx"
+          ],
           "description": "Glob patterns considered during analysis."
         },
         "exceptionLens.exclude": {
           "type": "array",
-          "default": ["**/node_modules/**", "**/dist/**", "**/build/**", "**/*.d.ts"],
+          "default": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/*.d.ts"
+          ],
           "description": "Glob patterns ignored during analysis."
         }
       }
@@ -125,7 +141,8 @@
     "build": "esbuild ./src/extension.ts --bundle --platform=node --format=cjs --external:vscode --outfile=dist/extension.js --sourcemap",
     "check": "tsc --noEmit",
     "test": "node --import tsx --test test/**/*.test.ts",
-    "package": "pnpm run check && pnpm run test && pnpm run build"
+    "package": "pnpm run check && pnpm run test && pnpm run build",
+    "package:vsix": "pnpm run package && pnpm exec vsce package --no-dependencies"
   },
   "dependencies": {
     "typescript": "^5.7.2"
@@ -133,6 +150,7 @@
   "devDependencies": {
     "@types/node": "^22.10.1",
     "@types/vscode": "^1.95.0",
+    "@vscode/vsce": "^4.0.0",
     "esbuild": "^0.24.0",
     "tsx": "^4.19.2"
   }

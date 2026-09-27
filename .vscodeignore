@@ -1,7 +1,11 @@
 .github/**
 .vscode/**
+.gitignore
+.pnpm-store/**
 src/**
 test/**
 example/**
+pnpm-lock.yaml
+pnpm-workspace.yaml
 tsconfig.json
 **/*.map

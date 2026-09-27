@@ -51,6 +51,22 @@ pnpm install
 pnpm run package
 ```
 
+### Build and install a VSIX
+
+Create an installable extension package:
+
+```bash
+pnpm run package:vsix
+```
+
+This verifies the project and creates `exception-lens-0.1.0.vsix`. Install it from the command line:
+
+```bash
+code --install-extension exception-lens-0.1.0.vsix
+```
+
+Alternatively, open VS Code's Extensions view, choose **Install from VSIX...** from the `...` menu, and select the generated file.
+
 Open this repository in VS Code and press `F5` to start an Extension Development Host. In the new window:
 
 1. Open the `example/express-api` folder.
