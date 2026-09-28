@@ -29,14 +29,16 @@ export function activate(context: vscode.ExtensionContext): void {
         routesProvider.setReport(analyzed);
         summaryProvider.setReport(analyzed);
         publishDiagnostics(analyzed, diagnostics);
+        GraphPanel.refreshOpenRoute(analyzed.routes);
 
         const message = `${analyzed.stats.routeCount} routes · ${analyzed.stats.exceptionPathCount} exception paths · ${analyzed.stats.unmappedCount} unmapped`;
+        const openFirstRoute = (choice: string | undefined): void => {
+          if (choice === "Open first route" && analyzed.routes[0]) GraphPanel.show(analyzed.routes[0]);
+        };
         if (analyzed.stats.unmappedCount) {
-          void vscode.window.showWarningMessage(`Exception Lens found ${message}.`, "Open first route").then((choice) => {
-            if (choice === "Open first route" && analyzed.routes[0]) GraphPanel.show(analyzed.routes[0]);
-          });
+          void vscode.window.showWarningMessage(`Exception Lens found ${message}.`, "Open first route").then(openFirstRoute);
         } else {
-          void vscode.window.showInformationMessage(`Exception Lens: ${message}.`);
+          void vscode.window.showInformationMessage(`Exception Lens: ${message}.`, "Open first route").then(openFirstRoute);
         }
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);

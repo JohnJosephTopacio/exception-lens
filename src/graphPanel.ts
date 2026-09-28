@@ -4,6 +4,7 @@ import type { FlowNode, RouteFlow } from "./model";
 
 export class GraphPanel {
   private static current?: GraphPanel;
+  private routeId = "";
 
   static show(route: RouteFlow): void {
     if (GraphPanel.current) {
@@ -20,6 +21,13 @@ export class GraphPanel {
     GraphPanel.current = new GraphPanel(panel, route);
   }
 
+  static refreshOpenRoute(routes: RouteFlow[]): void {
+    const current = GraphPanel.current;
+    if (!current) return;
+    const updatedRoute = routes.find((route) => route.id === current.routeId);
+    if (updatedRoute) current.update(updatedRoute);
+  }
+
   private constructor(private readonly panel: vscode.WebviewPanel, route: RouteFlow) {
     this.panel.onDidDispose(() => { GraphPanel.current = undefined; });
     this.panel.webview.onDidReceiveMessage(async (message: { type?: string; file?: string; line?: number; column?: number }) => {
@@ -33,6 +41,7 @@ export class GraphPanel {
   }
 
   private update(route: RouteFlow): void {
+    this.routeId = route.id;
     this.panel.title = `${route.method.toUpperCase()} ${route.path} · Exception Map`;
     this.panel.webview.html = renderHtml(route);
   }
