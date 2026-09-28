@@ -110,33 +110,25 @@ This project was developed with assistance from **OpenAI Codex / ChatGPT** for i
 
 Devpost requires at least three images. Use 16:9 images where possible and keep the editor text large enough to read.
 
-### Screenshot 1 — Boundary coverage dashboard
+### Screenshot 1 — Unmapped exception graph
 
-**Capture:** The Exception Lens sidebar after analyzing the intentionally incomplete demo. Show `67% boundary coverage`, one route, three exception paths, and one unmapped path.
-
-**Caption:**
-
-> Exception Lens summarizes the failure surface of the workspace and immediately identifies an uncovered exception path.
-
-### Screenshot 2 — Unmapped exception graph
-
-**Capture:** The graph for `POST /orders/:orderId/checkout` before the fix. Make sure the red `InventoryUnavailableError` node and the green mapped paths are visible.
+**File:** `screenshots/screenshot_1.png`
 
 **Caption:**
 
-> The interactive map traces failures across route, service, and repository boundaries. Red highlights an exception with no explicit middleware response.
+> Exception Lens traces three failures across service and repository boundaries. The red path reveals an exception with no explicit middleware response, resulting in 67% boundary coverage.
 
-### Screenshot 3 — Source-level diagnosis
+### Screenshot 2 — Native VS Code workflow
 
-**Capture:** `repository.ts` with the `InventoryUnavailableError` throw site selected and the Exception Lens warning visible in the Problems panel or sidebar.
+**File:** `screenshots/screenshot_2.png`
 
 **Caption:**
 
-> Every finding links back to its source, so developers can move directly from architectural overview to the exact line that needs attention.
+> Exception Lens works directly inside VS Code through commands, editor diagnostics, source navigation, reports, and interactive exception maps.
 
-### Screenshot 4 — Successful rescan
+### Screenshot 3 — Successful rescan
 
-**Capture:** The graph after adding the HTTP `503` middleware mapping. Show `100% boundary coverage`, zero unmapped paths, and the previously red exception displayed in green.
+**File:** `screenshots/screenshot_3.png`
 
 **Caption:**
 

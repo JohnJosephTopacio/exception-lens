@@ -38,6 +38,26 @@ The repository includes [`example/express-api`](example/express-api), a delibera
 
 Analyzing the example makes the missing contract visible immediately. Add an `instanceof InventoryUnavailableError` branch to the middleware, scan again, and watch the route turn green.
 
+## Screenshots
+
+### Detect an uncovered exception path
+
+![Exception Lens graph showing 67 percent boundary coverage and an unmapped InventoryUnavailableError](screenshots/screenshot_1.png)
+
+The route has three reachable exception paths, but `InventoryUnavailableError` has no explicit middleware response.
+
+### Analyze directly inside VS Code
+
+![Exception Lens commands in the VS Code Command Palette above the Express error middleware](screenshots/screenshot_2.png)
+
+Exception Lens integrates with the Command Palette, sidebar, editor diagnostics, and source navigation.
+
+### Verify the fix
+
+![Exception Lens graph showing 100 percent boundary coverage after the missing middleware mapping is added](screenshots/screenshot_3.png)
+
+After adding an HTTP `503` mapping and rescanning, every discovered exception has an explicit response contract.
+
 ## Run the extension
 
 ### Prerequisites
