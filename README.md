@@ -6,6 +6,8 @@ Exception Lens is a VS Code extension that traces exceptions from TypeScript Exp
 
 Built for the **Global Innovation Build Challenge V2 — Track 03: Open (General Technical Invention)**.
 
+**[Watch the 2-minute demo](https://www.youtube.com/watch?v=7PJ_6ErEhxA)**
+
 ## Why it exists
 
 Backend error handling tends to drift as an application grows. A service adds a new custom error, a route starts calling that service, but the shared middleware is never updated. The result is an accidental `500`, an inconsistent response, or a production-only surprise.

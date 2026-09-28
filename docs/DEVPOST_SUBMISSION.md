@@ -15,7 +15,7 @@
 ## Project links
 
 - Source code: https://github.com/JohnJosephTopacio/exception-lens
-- Demo video: add the public or unlisted video URL directly in Devpost
+- Demo video: https://www.youtube.com/watch?v=7PJ_6ErEhxA
 
 ## Short description
 
